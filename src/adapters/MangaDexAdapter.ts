@@ -66,10 +66,27 @@ export class MangaDexAdapter implements MangaAdapter {
   }
 
   async getMangaChapters(mangaId: string): Promise<MangaDexChapter[]> {
-    const endpoint = `/manga/${mangaId}/feed?limit=100&translatedLanguage[]=${this.language}&order[chapter]=asc&includeExternalUrl=0`
+    const endpoint = `/manga/${mangaId}/feed?limit=500&translatedLanguage[]=${this.language}&order[chapter]=asc&includeExternalUrl=0`
     
     const data = await this.fetchAPI<MangaDexChapterResponse>(endpoint)
+    
     return data.data
+      .filter((chapter) => {
+        const attrs = chapter.attributes
+        return (
+          !attrs.externalUrl &&
+          attrs.chapter &&
+          attrs.chapter !== '0' &&
+          !attrs.isUnavailable
+        )
+      })
+      .sort((a, b) => {
+        const aNum = parseFloat(a.attributes.chapter)
+        const bNum = parseFloat(b.attributes.chapter)
+        if (isNaN(aNum)) return 1
+        if (isNaN(bNum)) return -1
+        return aNum - bNum
+      })
   }
 
   async getChapterPages(_mangaId: string, chapterId: string): Promise<string[]> {

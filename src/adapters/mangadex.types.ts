@@ -27,6 +27,8 @@ export interface MangaDexChapter {
     translatedLanguage: string
     pages: number
     publishAt: string
+    externalUrl?: string | null
+    isUnavailable?: boolean
   }
 }
 
