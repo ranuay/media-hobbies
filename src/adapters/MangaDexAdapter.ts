@@ -72,7 +72,7 @@ export class MangaDexAdapter implements MangaAdapter {
     return data.data
   }
 
-  async getChapterPages(mangaId: string, chapterId: string): Promise<string[]> {
+  async getChapterPages(_mangaId: string, chapterId: string): Promise<string[]> {
     const data = await this.fetchAPI<MangaDexAtHomeResponse>(`/at-home/server/${chapterId}`)
     
     const { baseUrl, chapter } = data

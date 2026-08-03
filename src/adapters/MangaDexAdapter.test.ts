@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MangaDexAdapter } from './MangaDexAdapter'
 import type { MangaDexSearchResponse, MangaDexChapterResponse, MangaDexAtHomeResponse } from './mangadex.types'
 
-global.fetch = vi.fn()
+globalThis.fetch = vi.fn()
 
 describe('MangaDexAdapter', () => {
   let adapter: MangaDexAdapter

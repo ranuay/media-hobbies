@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { TMDBAdapter } from './TMDBAdapter'
 import type { TMDBTrendingResponse, TMDBSearchResponse, TMDBMovieDetail } from './tmdb.types'
 
-global.fetch = vi.fn()
+globalThis.fetch = vi.fn()
 
 describe('TMDBAdapter', () => {
   let adapter: TMDBAdapter

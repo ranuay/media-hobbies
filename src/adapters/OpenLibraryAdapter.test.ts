@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { OpenLibraryAdapter } from './OpenLibraryAdapter'
 import type { OpenLibrarySearchResponse } from './openlibrary.types'
 
-global.fetch = vi.fn()
+globalThis.fetch = vi.fn()
 
 describe('OpenLibraryAdapter', () => {
   let adapter: OpenLibraryAdapter
