@@ -1,6 +1,27 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((prev: T) => T)) => void] {
+/**
+ * A hook that syncs state with localStorage.
+ * 
+ * @param key - The localStorage key to use
+ * @param initialValue - The initial value if localStorage is empty
+ * @returns A tuple of [storedValue, setValue] similar to useState
+ * 
+ * @example
+ * ```tsx
+ * const [name, setName] = useLocalStorage('user-name', 'Guest')
+ * 
+ * // Set with a new value
+ * setName('John')
+ * 
+ * // Set with a function (like useState)
+ * setName(prev => prev.toUpperCase())
+ * ```
+ */
+export function useLocalStorage<T>(
+  key: string,
+  initialValue: T
+): [T, (value: T | ((prev: T) => T)) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = window.localStorage.getItem(key)

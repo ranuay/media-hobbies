@@ -57,4 +57,19 @@ describe('useLocalStorage', () => {
     const { result } = renderHook(() => useLocalStorage('test-key', 'fallback'))
     expect(result.current[0]).toBe('fallback')
   })
+
+  it('should persist value across hook unmount and remount', () => {
+    const { result, unmount } = renderHook(() => useLocalStorage('persist-key', 'initial'))
+    
+    act(() => {
+      result.current[1]('persisted-value')
+    })
+    
+    expect(result.current[0]).toBe('persisted-value')
+    
+    unmount()
+    
+    const { result: result2 } = renderHook(() => useLocalStorage('persist-key', 'initial'))
+    expect(result2.current[0]).toBe('persisted-value')
+  })
 })

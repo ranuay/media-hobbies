@@ -1,22 +1,8 @@
 export interface MediaProgress {
+  /** Unix timestamp (ms) of the last access */
   lastAccessed: number
+  /** Progress fraction from 0 to 1 (0 = not started, 1 = completed) */
   progress: number
-}
-
-export interface MangaProgress extends MediaProgress {
-  chapterId: string
-  page: number
-  totalPages: number
-}
-
-export interface FilmProgress extends MediaProgress {
-  timestamp: number
-  duration: number
-}
-
-export interface BookProgress extends MediaProgress {
-  position: number
-  totalLength: number
 }
 
 export interface MangaItem {
