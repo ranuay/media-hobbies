@@ -7,9 +7,17 @@ import type { MangaDexChapter } from '../../adapters/mangadex.types'
 import LoadingSpinner from '../common/LoadingSpinner'
 import ErrorMessage from '../common/ErrorMessage'
 
+type LanguageFilter = 'all' | 'en' | 'id'
+
+const LANGUAGE_LABELS: Record<string, string> = {
+  en: 'EN',
+  id: 'ID',
+}
+
 export default function MangaDetailPage() {
   const { mangaId } = useParams<{ mangaId: string }>()
   const [chapters, setChapters] = useState<MangaDexChapter[]>([])
+  const [languageFilter, setLanguageFilter] = useState<LanguageFilter>('id')
   const { isLoading, error, fetchWithErrorHandling } = useManga()
   const savedProgress = useMangaProgress().getProgress(mangaId || '')
 
@@ -25,6 +33,13 @@ export default function MangaDetailPage() {
     loadChapters()
   }, [mangaId])
 
+  const filteredChapters = languageFilter === 'all'
+    ? chapters
+    : chapters.filter(c => c.attributes.translatedLanguage === languageFilter)
+
+  const englishCount = chapters.filter(c => c.attributes.translatedLanguage === 'en').length
+  const indonesianCount = chapters.filter(c => c.attributes.translatedLanguage === 'id').length
+
   if (isLoading) return <LoadingSpinner />
   if (error) return <ErrorMessage message={error} onRetry={loadChapters} />
 
@@ -34,7 +49,45 @@ export default function MangaDetailPage() {
         ← Back to Manga
       </Link>
 
-      <h1 className="text-3xl font-bold mb-6">Chapters</h1>
+      <h1 className="text-3xl font-bold mb-4">Chapters</h1>
+
+      <div className="text-gray-400 text-sm mb-6">
+        {englishCount} chapters in English · {indonesianCount} chapters in Indonesian
+      </div>
+
+      {/* Language filter */}
+      <div className="flex gap-2 mb-6">
+        <button
+          onClick={() => setLanguageFilter('all')}
+          className={`px-4 py-2 rounded transition ${
+            languageFilter === 'all'
+              ? 'bg-netflix-red text-white'
+              : 'bg-netflix-gray text-gray-400 hover:bg-gray-700'
+          }`}
+        >
+          All ({chapters.length})
+        </button>
+        <button
+          onClick={() => setLanguageFilter('en')}
+          className={`px-4 py-2 rounded transition ${
+            languageFilter === 'en'
+              ? 'bg-netflix-red text-white'
+              : 'bg-netflix-gray text-gray-400 hover:bg-gray-700'
+          }`}
+        >
+          EN ({englishCount})
+        </button>
+        <button
+          onClick={() => setLanguageFilter('id')}
+          className={`px-4 py-2 rounded transition ${
+            languageFilter === 'id'
+              ? 'bg-netflix-red text-white'
+              : 'bg-netflix-gray text-gray-400 hover:bg-gray-700'
+          }`}
+        >
+          ID ({indonesianCount})
+        </button>
+      </div>
 
       {savedProgress && (
         <div className="mb-6 p-4 bg-netflix-gray rounded-lg">
@@ -51,28 +104,39 @@ export default function MangaDetailPage() {
         </div>
       )}
 
-      {chapters.length === 0 ? (
+      {filteredChapters.length === 0 ? (
         <div className="text-center text-gray-400 py-12">
-          No chapters available for this manga.
+          {chapters.length === 0
+            ? 'No chapters available for this manga.'
+            : 'No chapters in the selected language.'}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {chapters.map((chapter) => (
+          {filteredChapters.map((chapter) => (
             <Link
               key={chapter.id}
               to={`/manga/${mangaId}/chapter/${chapter.id}`}
               className="p-4 bg-netflix-gray rounded-lg hover:bg-gray-700 transition"
             >
               <div className="flex justify-between items-center">
-                <div>
-                  <div className="text-white font-medium">
-                    Chapter {chapter.attributes.chapter}
-                  </div>
-                  {chapter.attributes.title && (
-                    <div className="text-gray-400 text-sm line-clamp-1">
-                      {chapter.attributes.title}
+                <div className="flex items-center gap-2">
+                  <span className={`px-2 py-0.5 rounded text-xs font-bold ${
+                    chapter.attributes.translatedLanguage === 'id'
+                      ? 'bg-green-600 text-white'
+                      : 'bg-blue-600 text-white'
+                  }`}>
+                    {LANGUAGE_LABELS[chapter.attributes.translatedLanguage] || chapter.attributes.translatedLanguage.toUpperCase()}
+                  </span>
+                  <div>
+                    <div className="text-white font-medium">
+                      Chapter {chapter.attributes.chapter}
                     </div>
-                  )}
+                    {chapter.attributes.title && (
+                      <div className="text-gray-400 text-sm line-clamp-1">
+                        {chapter.attributes.title}
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div className="text-gray-500 text-sm">
                   {chapter.attributes.pages} pages

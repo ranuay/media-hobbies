@@ -12,6 +12,8 @@ import type {
 const BASE_URL = 'https://api.mangadex.org'
 const COVER_BASE_URL = 'https://uploads.mangadex.org/covers'
 
+const SUPPORTED_LANGUAGES: MangaDexLanguage[] = ['en', 'id']
+
 export class MangaDexAdapter implements MangaAdapter {
   private language: MangaDexLanguage
 
@@ -36,37 +38,52 @@ export class MangaDexAdapter implements MangaAdapter {
     return `${COVER_BASE_URL}/${mangaId}/${fileName}`
   }
 
+  private getPreferredTitle(title: Record<string, string>): string {
+    if (title[this.language]) return title[this.language]
+    return title.en || title.ja || title['ja-ro'] || Object.values(title)[0] || 'Unknown'
+  }
+
   private mapToMangaItem(manga: MangaDexManga): MangaItem {
     const coverRelation = manga.relationships.find(r => r.type === 'cover_art')
     const coverFileName = coverRelation?.attributes?.fileName
 
     return {
       id: manga.id,
-      title: manga.attributes.title.en || manga.attributes.title.ja || Object.values(manga.attributes.title)[0] || 'Unknown',
+      title: this.getPreferredTitle(manga.attributes.title),
       coverImage: this.getCoverUrl(manga.id, coverFileName),
       description: manga.attributes.description?.en || manga.attributes.description?.id || '',
     }
   }
 
+  private buildAvailableLanguagesParam(): string {
+    return SUPPORTED_LANGUAGES
+      .map(lang => `availableTranslatedLanguage[]=${lang}`)
+      .join('&')
+  }
+
   async getPopularManga(params?: MediaListParams): Promise<MangaItem[]> {
-    const limit = params?.perPage || 20
+    const limit = params?.perPage || 40
     const offset = ((params?.page || 1) - 1) * limit
 
-    const endpoint = `/manga?limit=${limit}&offset=${offset}&order[followedCount]=desc&includes[]=cover_art&availableTranslatedLanguage[]=${this.language}&contentRating[]=safe&contentRating[]=suggestive`
+    const endpoint = `/manga?limit=${limit}&offset=${offset}&order[followedCount]=desc&includes[]=cover_art&${this.buildAvailableLanguagesParam()}&contentRating[]=safe&contentRating[]=suggestive`
     
     const data = await this.fetchAPI<MangaDexSearchResponse>(endpoint)
     return data.data.map(manga => this.mapToMangaItem(manga))
   }
 
   async searchManga(query: string): Promise<MangaItem[]> {
-    const endpoint = `/manga?title=${encodeURIComponent(query)}&limit=20&includes[]=cover_art&availableTranslatedLanguage[]=${this.language}`
+    const endpoint = `/manga?title=${encodeURIComponent(query)}&limit=40&includes[]=cover_art&${this.buildAvailableLanguagesParam()}`
     
     const data = await this.fetchAPI<MangaDexSearchResponse>(endpoint)
     return data.data.map(manga => this.mapToMangaItem(manga))
   }
 
   async getMangaChapters(mangaId: string): Promise<MangaDexChapter[]> {
-    const endpoint = `/manga/${mangaId}/feed?limit=500&translatedLanguage[]=${this.language}&order[chapter]=asc&includeExternalUrl=0`
+    const langParams = SUPPORTED_LANGUAGES
+      .map(lang => `translatedLanguage[]=${lang}`)
+      .join('&')
+
+    const endpoint = `/manga/${mangaId}/feed?limit=500&${langParams}&order[chapter]=asc&includeExternalUrl=0`
     
     const data = await this.fetchAPI<MangaDexChapterResponse>(endpoint)
     

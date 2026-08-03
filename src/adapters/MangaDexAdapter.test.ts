@@ -13,7 +13,7 @@ describe('MangaDexAdapter', () => {
   })
 
   describe('getPopularManga', () => {
-    it('should fetch popular manga with default language', async () => {
+    it('should fetch popular manga with both supported languages', async () => {
       const mockResponse: MangaDexSearchResponse = {
         result: 'ok',
         response: 'collection',
@@ -34,7 +34,7 @@ describe('MangaDexAdapter', () => {
             ],
           },
         ],
-        limit: 20,
+        limit: 40,
         offset: 0,
         total: 1,
       }
@@ -47,7 +47,7 @@ describe('MangaDexAdapter', () => {
       const result = await adapter.getPopularManga()
 
       expect(fetch).toHaveBeenCalledWith(
-        expect.stringContaining('availableTranslatedLanguage[]=en')
+        expect.stringContaining('availableTranslatedLanguage[]=en&availableTranslatedLanguage[]=id')
       )
       expect(result).toHaveLength(1)
       expect(result[0]).toEqual({
@@ -56,6 +56,36 @@ describe('MangaDexAdapter', () => {
         coverImage: 'https://uploads.mangadex.org/covers/manga-1/cover.jpg',
         description: 'Pirate adventure',
       })
+    })
+
+    it('should use Indonesian title when preferred language is set to id', async () => {
+      adapter.setLanguage('id')
+
+      const mockResponse: MangaDexSearchResponse = {
+        result: 'ok',
+        response: 'collection',
+        data: [
+          {
+            id: 'manga-1',
+            type: 'manga',
+            attributes: {
+              title: { id: 'Satu Potong', en: 'One Piece' },
+            },
+            relationships: [],
+          },
+        ],
+        limit: 40,
+        offset: 0,
+        total: 1,
+      }
+
+      vi.mocked(fetch).mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockResponse,
+      } as Response)
+
+      const result = await adapter.getPopularManga()
+      expect(result[0].title).toBe('Satu Potong')
     })
 
     it('should support pagination', async () => {
@@ -190,8 +220,79 @@ describe('MangaDexAdapter', () => {
       expect(fetch).toHaveBeenCalledWith(
         expect.stringContaining('/manga/manga-1/feed')
       )
+      expect(fetch).toHaveBeenCalledWith(
+        expect.stringContaining('translatedLanguage[]=en&translatedLanguage[]=id')
+      )
       expect(result).toHaveLength(1)
       expect(result[0].attributes.chapter).toBe('1')
+    })
+
+    it('should filter out chapters with external URLs, zero chapters, and unavailable chapters', async () => {
+      const mockResponse: MangaDexChapterResponse = {
+        result: 'ok',
+        response: 'collection',
+        data: [
+          {
+            id: 'ch-ok',
+            type: 'chapter',
+            attributes: {
+              chapter: '3',
+              title: 'Real Chapter',
+              translatedLanguage: 'en',
+              pages: 20,
+              publishAt: '2020-01-01T00:00:00+00:00',
+            },
+          },
+          {
+            id: 'ch-ext',
+            type: 'chapter',
+            attributes: {
+              chapter: '1',
+              title: 'External',
+              translatedLanguage: 'en',
+              pages: 5,
+              publishAt: '2020-01-01T00:00:00+00:00',
+              externalUrl: 'https://external.com/chapter',
+            },
+          },
+          {
+            id: 'ch-zero',
+            type: 'chapter',
+            attributes: {
+              chapter: '0',
+              title: 'Special Thanks',
+              translatedLanguage: 'en',
+              pages: 2,
+              publishAt: '2020-01-01T00:00:00+00:00',
+            },
+          },
+          {
+            id: 'ch-unavail',
+            type: 'chapter',
+            attributes: {
+              chapter: '2',
+              title: 'Unavailable',
+              translatedLanguage: 'en',
+              pages: 10,
+              publishAt: '2020-01-01T00:00:00+00:00',
+              isUnavailable: true,
+            },
+          },
+        ],
+        limit: 100,
+        offset: 0,
+        total: 4,
+      }
+
+      vi.mocked(fetch).mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockResponse,
+      } as Response)
+
+      const result = await adapter.getMangaChapters('manga-1')
+
+      expect(result).toHaveLength(1)
+      expect(result[0].id).toBe('ch-ok')
     })
   })
 
