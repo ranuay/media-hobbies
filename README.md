@@ -30,7 +30,12 @@ npm run lint      # oxlint
 
 ## Deploy
 
-Auto-deploy via Vercel (git integration). `vercel.json` menyediakan SPA rewrite sehingga route seperti `/roadmap` dan `/topics/:id` tidak 404 saat di-refresh.
+Deploy ke Cloudflare Pages lewat Git integration. File `public/_redirects` (SPA rewrite) dan `public/_headers` (security headers) sudah disiapkan sehingga route seperti `/roadmap` dan `/topics/:id` tidak 404 saat di-refresh.
+
+Build config:
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Node version: `20`
 
 ## Struktur
 
