@@ -26,6 +26,11 @@ export default function ProgressPage() {
   }
 
   const handleImport = (file: File) => {
+    const MAX = 2 * 1024 * 1024
+    if (file.size > MAX) {
+      setImportMessage('Gagal: file terlalu besar (maks 2 MB).')
+      return
+    }
     const reader = new FileReader()
     reader.onload = () => {
       const ok = importProgress(reader.result as string)

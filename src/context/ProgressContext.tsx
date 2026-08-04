@@ -69,14 +69,15 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
 
   const importProgress = (json: string): boolean => {
     try {
-      const parsed = JSON.parse(json) as ProgressState
+      if (!json?.trim()) return false
+      const parsed = JSON.parse(json)
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return false
       if (!Array.isArray(parsed.completedResourceIds)) return false
-      if (typeof parsed.checkedChecklistIds !== 'object' || parsed.checkedChecklistIds === null) {
-        return false
-      }
+      const checkIds = parsed.checkedChecklistIds
+      if (!checkIds || typeof checkIds !== 'object' || Array.isArray(checkIds)) return false
       setProgress({
         completedResourceIds: parsed.completedResourceIds,
-        checkedChecklistIds: parsed.checkedChecklistIds,
+        checkedChecklistIds: checkIds,
       })
       return true
     } catch {
