@@ -15,6 +15,7 @@ export default function RoadmapPage() {
   return (
     <div>
       <PageHeader
+        eyebrow="roadmap"
         title="Roadmap Cybersecurity Fundamentals"
         description="Sepuluh topik berurutan. Selesaikan resource wajib untuk maju ke topik berikutnya."
       />
@@ -53,7 +54,7 @@ export default function RoadmapPage() {
                       <span className="w-6 h-6 flex items-center justify-center rounded-full bg-primary-light dark:bg-dark-primary-light text-primary-dark dark:text-dark-primary-dark text-xs font-bold">
                         {index + 1}
                       </span>
-                      <h3 className="font-semibold">{topic.title}</h3>
+                      <h3 className="font-display font-semibold">{topic.title}</h3>
                     </div>
                     <p className="text-sm text-muted dark:text-dark-muted mt-2 leading-relaxed">{topic.summary}</p>
                   </div>

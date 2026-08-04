@@ -44,6 +44,7 @@ export default function ProgressPage() {
   return (
     <div>
       <PageHeader
+        eyebrow="your progress"
         title="Progres Saya"
         description="Progres disimpan secara lokal di browser kamu (localStorage)."
       />
@@ -56,7 +57,6 @@ export default function ProgressPage() {
           value={`${Math.max(totalRequiredResources - completedCount, 0)}`}
         />
       </div>
-
       <section className="mb-8 p-5 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface">
         <h2 className="font-semibold mb-3">Backup & pemulihan</h2>
         <p className="text-sm text-muted dark:text-dark-muted mb-4">
@@ -102,7 +102,7 @@ export default function ProgressPage() {
       </section>
 
       <section>
-        <h2 className="text-xl font-semibold mb-4">Rincian per topik</h2>
+        <h2 className="font-display text-xl font-semibold mb-4">Rincian per topik</h2>
         {ordered.map((topic) => {
           const status = getTopicStatus(topic, progress.completedResourceIds)
           const done = topic.primaryResourceIds.filter((id) =>

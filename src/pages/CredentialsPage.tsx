@@ -34,6 +34,7 @@ export default function CredentialsPage() {
   return (
     <div>
       <PageHeader
+        eyebrow="credentials"
         title="Free Certificates & Badges"
         description="Direktori credential dengan status yang transparan. Lihat bagian 'Yang gratis' dan 'Kemungkinan biaya tambahan' sebelum mendaftar."
       />

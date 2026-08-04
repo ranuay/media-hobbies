@@ -10,6 +10,7 @@ export default function AboutPage() {
   return (
     <div className="max-w-3xl">
       <PageHeader
+        eyebrow="about"
         title="Tentang & Disclaimer"
         description="Bagaimana CyberPath mengkurasi konten, dan batasan penting yang perlu kamu ketahui."
       />

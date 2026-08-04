@@ -59,6 +59,7 @@ export default function ResourcesPage() {
   return (
     <div>
       <PageHeader
+        eyebrow="catalog"
         title="Resource Catalog"
         description="Resource dikurasi dari sumber resmi atau tepercaya. Beberapa materi gratis memiliki lab atau exam berbayar."
       />

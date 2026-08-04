@@ -56,7 +56,7 @@ export default function TopicDetailPage() {
       )}
 
       <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-3">Tujuan Belajar</h2>
+        <h2 className="font-display text-xl font-semibold mb-3">Tujuan Belajar</h2>
         <ul className="space-y-2">
           {topic.learningGoals.map((goal, i) => (
             <li key={i} className="flex gap-3 text-sm leading-relaxed">
@@ -68,7 +68,7 @@ export default function TopicDetailPage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 className="font-display text-xl font-semibold mb-4">
           Resource Wajib <span className="text-sm text-muted dark:text-dark-muted font-normal">({primaryResources.length})</span>
         </h2>
         <div className="space-y-3">
@@ -117,7 +117,7 @@ export default function TopicDetailPage() {
 
       {alternativeResources.length > 0 && (
         <section className="mb-10">
-          <h2 className="text-xl font-semibold mb-4">
+          <h2 className="font-display text-xl font-semibold mb-4">
             Resource Alternatif{' '}
             <span className="text-sm text-muted dark:text-dark-muted font-normal">
               (tidak dihitung untuk progres)
@@ -152,7 +152,7 @@ export default function TopicDetailPage() {
       )}
 
       <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-4">Checklist</h2>
+        <h2 className="font-display text-xl font-semibold mb-4">Checklist</h2>
         <ul className="space-y-2">
           {topic.checklist.map((item, i) => {
             const checked = isChecklistItemChecked(topic.id, item)

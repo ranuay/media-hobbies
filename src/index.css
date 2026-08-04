@@ -3,31 +3,39 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-background: #f8f9fa;
-  --color-surface: #ffffff;
-  --color-foreground: #171717;
-  --color-muted: #6b7280;
-  --color-muted-light: #9ca3af;
-  --color-border: #e5e7eb;
-  --color-primary: #6366f1;
-  --color-primary-dark: #4f46e5;
-  --color-primary-light: #eef2ff;
+  --font-display: "Space Grotesk", -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
 
-  --color-dark-background: #0b0f19;
-  --color-dark-surface: #111827;
-  --color-dark-foreground: #e5e7eb;
-  --color-dark-muted: #9ca3af;
-  --color-dark-border: #1f2937;
-  --color-dark-primary: #818cf8;
-  --color-dark-primary-dark: #a5b4fc;
-  --color-dark-primary-light: #1e2a4a;
+  --color-background: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-foreground: #0f172a;
+  --color-muted: #5b6b7f;
+  --color-muted-light: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-primary: #0e7490;
+  --color-primary-dark: #155e75;
+  --color-primary-light: #ecfeff;
+  --color-accent: #10b981;
+
+  --color-dark-background: #0a0f1a;
+  --color-dark-surface: #111a2c;
+  --color-dark-foreground: #e6edf5;
+  --color-dark-muted: #8fa1b8;
+  --color-dark-border: #1e2a3f;
+  --color-dark-primary: #22d3ee;
+  --color-dark-primary-dark: #67e8f9;
+  --color-dark-primary-light: #0c2438;
+  --color-dark-accent: #34d399;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--color-background);
@@ -36,6 +44,12 @@
   .dark body {
     background-color: var(--color-dark-background);
     color: var(--color-dark-foreground);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
   }
 }
 
@@ -47,5 +61,41 @@
   :root:not(.light) body {
     background-color: var(--color-dark-background);
     color: var(--color-dark-foreground);
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .dark .eyebrow {
+    color: var(--color-dark-primary);
+  }
+  .stat-number {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  .blueprint {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--color-primary) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--color-primary) 6%, transparent) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .dark .blueprint {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--color-dark-primary) 5%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--color-dark-primary) 5%, transparent) 1px, transparent 1px);
+  }
+  .node-line {
+    height: 1px;
+    background: color-mix(in oklab, var(--color-primary) 40%, transparent);
+  }
+  .dark .node-line {
+    background: color-mix(in oklab, var(--color-dark-primary) 40%, transparent);
   }
 }
