@@ -77,7 +77,7 @@ export default function ResourcesPage() {
       />
 
       <div className="grid lg:grid-cols-[260px_1fr] gap-6">
-        <aside className="space-y-4">
+        <aside className="space-y-4 lg:sticky lg:top-20 lg:self-start">
           <div>
             <label htmlFor="search" className="text-sm font-medium">
               Cari

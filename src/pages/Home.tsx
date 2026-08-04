@@ -19,7 +19,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background dark:to-dark-background pointer-events-none" />
         <div className="relative px-6 sm:px-10 py-14 sm:py-20 max-w-2xl">
           <p className="eyebrow mb-4">
-            <span className="text-accent dark:text-dark-accent">●</span> MVP — cybersecurity fundamentals
+            <span className="text-accent dark:text-dark-accent">●</span> cybersecurity fundamentals
           </p>
           <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight leading-[1.05]">
             Satu peta belajar{' '}
@@ -36,12 +36,6 @@ export default function Home() {
               className="px-6 py-3 bg-primary dark:bg-dark-primary text-white rounded-xl font-semibold hover:bg-primary-dark dark:hover:bg-dark-primary-dark transition-colors shadow-sm"
             >
               Mulai Cybersecurity Fundamentals →
-            </Link>
-            <Link
-              to="/credentials"
-              className="px-6 py-3 border border-border dark:border-dark-border bg-surface/60 dark:bg-dark-surface/60 text-foreground dark:text-dark-foreground rounded-xl font-medium hover:bg-surface dark:hover:bg-dark-surface transition-colors"
-            >
-              Lihat Free Certificates
             </Link>
           </div>
         </div>

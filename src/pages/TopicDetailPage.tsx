@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { getTopicById } from '../utils/labels'
+import { getTopicById, getTopicsInOrder } from '../utils/labels'
 import { getResourceById } from '../utils/labels'
 import { useProgress } from '../context/ProgressContext'
 import PageHeader from '../components/common/PageHeader'
@@ -26,6 +26,9 @@ export default function TopicDetailPage() {
   const primaryResources = topic.primaryResourceIds.map(getResourceById).filter(Boolean)
   const alternativeResources = topic.alternativeResourceIds.map(getResourceById).filter(Boolean)
   const prerequisiteTopics = (topic.prerequisites ?? []).map(getTopicById).filter(Boolean)
+  const orderedTopics = getTopicsInOrder()
+  const currentIndex = orderedTopics.findIndex((t) => t.id === topic.id)
+  const nextTopic = currentIndex >= 0 && currentIndex < orderedTopics.length - 1 ? orderedTopics[currentIndex + 1] : undefined
 
   return (
     <div>
@@ -175,9 +178,27 @@ export default function TopicDetailPage() {
       </section>
 
       {topic.nextSteps && (
-        <section className="p-5 border border-border dark:border-dark-border bg-surface dark:bg-dark-surface rounded-xl">
+        <section className="mb-8 p-5 border border-border dark:border-dark-border bg-surface dark:bg-dark-surface rounded-xl">
           <h2 className="font-semibold mb-2">Langkah berikutnya</h2>
           <p className="text-sm text-muted dark:text-dark-muted leading-relaxed">{topic.nextSteps}</p>
+        </section>
+      )}
+
+      {nextTopic && (
+        <section className="p-6 border border-primary/30 dark:border-dark-primary/30 bg-primary-light/40 dark:bg-dark-primary-light/40 rounded-2xl">
+          <div className="eyebrow mb-2">
+            topik {String(nextTopic.order).padStart(2, '0')} / {orderedTopics.length}
+          </div>
+          <h2 className="font-display text-xl font-semibold mb-1">{nextTopic.title}</h2>
+          <p className="text-sm text-muted dark:text-dark-muted mb-4 leading-relaxed">
+            {nextTopic.summary}
+          </p>
+          <Link
+            to={`/topics/${nextTopic.id}`}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary dark:bg-dark-primary text-white rounded-xl font-medium hover:bg-primary-dark dark:hover:bg-dark-primary-dark transition"
+          >
+            Lanjut ke topik berikutnya →
+          </Link>
         </section>
       )}
     </div>

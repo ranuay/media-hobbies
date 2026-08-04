@@ -12,6 +12,7 @@ export default function CredentialsPage() {
   const [showClosed, setShowClosed] = useState(false)
   const [typeFilter, setTypeFilter] = useState<string[]>([])
   const [providerFilter, setProviderFilter] = useState('')
+  const [search, setSearch] = useState('')
 
   const providers = useMemo(
     () => Array.from(new Set(credentials.map((c) => c.provider))).sort(),
@@ -27,9 +28,15 @@ export default function CredentialsPage() {
       if (!showClosed && c.status === 'closed') return false
       if (typeFilter.length && !typeFilter.includes(c.type)) return false
       if (providerFilter && c.provider !== providerFilter) return false
+      if (search) {
+        const s = search.toLowerCase()
+        if (!c.name.toLowerCase().includes(s) && !c.provider.toLowerCase().includes(s)) {
+          return false
+        }
+      }
       return true
     })
-  }, [showClosed, typeFilter, providerFilter])
+  }, [showClosed, typeFilter, providerFilter, search])
 
   return (
     <div>
@@ -57,6 +64,20 @@ export default function CredentialsPage() {
       </div>
 
       <div className="flex flex-wrap gap-4 mb-6">
+        <div className="w-full sm:w-64">
+          <label htmlFor="cred-search" className="text-xs text-muted dark:text-dark-muted block mb-1">
+            Cari
+          </label>
+          <input
+            id="cred-search"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Nama atau provider..."
+            className="w-full px-3 py-2 border border-border dark:border-dark-border rounded-lg bg-surface dark:bg-dark-surface text-sm focus:border-primary dark:focus:border-dark-primary focus:outline-none"
+          />
+        </div>
+
         <label className="flex items-center gap-2 text-sm">
           <input
             type="checkbox"
