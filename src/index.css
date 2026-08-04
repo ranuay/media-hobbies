@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-netflix-black: #141414;
-  --color-netflix-red: #E50914;
-  --color-netflix-darkgray: #181818;
-  --color-netflix-gray: #2F2F2F;
+  --color-background: #fafafa;
+  --color-surface: #ffffff;
+  --color-foreground: #171717;
+  --color-muted: #737373;
+  --color-muted-light: #a3a3a3;
+  --color-border: #e5e5e5;
+  --color-primary: #6366f1;
+  --color-primary-dark: #4f46e5;
+  --color-primary-light: #eef2ff;
 }
 
 body {
@@ -14,8 +19,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #141414;
-  color: #fff;
+  background-color: #fafafa;
+  color: #171717;
 }
 
 #root {

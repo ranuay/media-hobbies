@@ -1,29 +1,71 @@
-export interface MediaProgress {
-  /** Unix timestamp (ms) of the last access */
-  lastAccessed: number
-  /** Progress fraction from 0 to 1 (0 = not started, 1 = completed) */
-  progress: number
-}
+export type Level = 'beginner' | 'intermediate' | 'advanced'
 
-export interface MangaItem {
+export type ResourceFormat = 'course' | 'article' | 'video' | 'lab' | 'book' | 'challenge'
+
+export type AccessCost = 'free' | 'freemium' | 'paid'
+
+export type TheoryPractice = 'theory' | 'practice' | 'mixed'
+
+export interface Resource {
   id: string
   title: string
-  coverImage: string
-  description?: string
+  provider: string
+  officialUrl: string
+  topicIds: string[]
+  level: Level
+  format: ResourceFormat
+  accessCost: AccessCost
+  languages: string[]
+  estimatedMinutes?: number
+  requiresAccount: boolean
+  requiresLabOrVm: boolean
+  theoryPractice: TheoryPractice
 }
 
-export interface FilmItem {
+export type CredentialType =
+  | 'professional-certification'
+  | 'course-certificate'
+  | 'statement'
+  | 'digital-badge'
+  | 'training-only'
+
+export type CredentialStatus = 'active' | 'limited' | 'unverified' | 'closed'
+
+export interface Credential {
   id: string
-  title: string
-  posterImage: string
-  description?: string
-  duration?: number
+  resourceId?: string
+  provider: string
+  name: string
+  officialUrl: string
+  type: CredentialType
+  status: CredentialStatus
+  courseFree: boolean
+  credentialFree: boolean
+  examFree?: boolean
+  extraCosts?: string
+  eligibility?: string
+  evidenceNote: string
+  lastVerifiedAt: string
 }
 
-export interface BookItem {
+export interface RoadmapTopic {
   id: string
+  order: number
   title: string
-  coverImage: string
-  author?: string
-  description?: string
+  learningGoals: string[]
+  prerequisites?: string[]
+  summary: string
+  primaryResourceIds: string[]
+  alternativeResourceIds: string[]
+  practiceGuide?: string
+  estimatedHours: number
+  checklist: string[]
+  nextSteps?: string
+}
+
+export type TopicStatus = 'not-started' | 'in-progress' | 'completed'
+
+export interface ProgressState {
+  completedResourceIds: string[]
+  checkedChecklistIds: Record<string, string[]>
 }
