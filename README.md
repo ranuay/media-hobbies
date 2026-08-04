@@ -1,32 +1,45 @@
-# React + TypeScript + Vite
+# CyberPath
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Jalur belajar **cybersecurity fundamentals** yang terkurasi. Roadmap 10 topik, resource resmi yang sudah diverifikasi, katalog kredensial gratis, dan pelacak progres yang tersimpan di browser.
 
-Currently, two official plugins are available:
+## Fitur
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Roadmap 10 topik** berurutan dengan status node (belum mulai / sedang / selesai)
+- **31 resource resmi** terkurasi dengan filter kategori, kesulitan, dan biaya
+- **7 kredensial gratis** dengan label status harga yang transparan
+- **Pelacak progres** — centang resource, checklist per topik, ekspor/impor JSON, reset
+- **Dark/light theme** dengan fallback ke preferensi sistem
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + TypeScript
+- Vite 8
+- Tailwind CSS v4
+- React Router 7
+- Vitest + Testing Library
 
-## Expanding the Oxlint configuration
+## Development
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev       # dev server di http://localhost:5173
+npm run build     # tipe-check + build production
+npm run test      # jalankan test suite
+npm run lint      # oxlint
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Deploy
+
+Auto-deploy via Vercel (git integration). `vercel.json` menyediakan SPA rewrite sehingga route seperti `/roadmap` dan `/topics/:id` tidak 404 saat di-refresh.
+
+## Struktur
+
+```
+src/
+  components/common/   # Navbar, Footer, PageHeader
+  context/             # ProgressContext, ThemeContext
+  data/                # Seed data: topics, resources, credentials
+  hooks/               # useLocalStorage
+  pages/               # 8 halaman MVP
+  utils/               # labels & helper progres
+```
