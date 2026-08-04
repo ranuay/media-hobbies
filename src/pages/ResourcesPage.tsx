@@ -9,6 +9,7 @@ import {
 import PageHeader from '../components/common/PageHeader'
 import Badge from '../components/common/Badge'
 import ExternalLink from '../components/common/ExternalLink'
+import { SkeletonCard, useSimulatedLoading } from '../components/common/Skeleton'
 
 const ALL_FORMATS = Object.keys(FORMAT_LABELS) as (keyof typeof FORMAT_LABELS)[]
 const ALL_LEVELS = Object.keys(LEVEL_LABELS) as (keyof typeof LEVEL_LABELS)[]
@@ -25,6 +26,7 @@ export default function ResourcesPage() {
   const [needsAccount, setNeedsAccount] = useState(false)
   const [needsLab, setNeedsLab] = useState(false)
   const [page, setPage] = useState(1)
+  const loading = useSimulatedLoading(350)
 
   const toggle = (list: string[], setter: (v: string[]) => void, value: string) => {
     setter(list.includes(value) ? list.filter((v) => v !== value) : [...list, value])
@@ -162,7 +164,13 @@ export default function ResourcesPage() {
             {filtered.length} resource
           </div>
 
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div className="space-y-3" aria-busy="true" aria-label="Memuat resource">
+              {Array.from({ length: PER_PAGE }).map((_, i) => (
+                <SkeletonCard key={i} />
+              ))}
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="p-8 border border-dashed border-border dark:border-dark-border rounded-xl text-center">
               <p className="text-muted dark:text-dark-muted mb-3">Tidak ada resource yang cocok dengan filter saat ini.</p>
               <button onClick={reset} className="text-primary dark:text-dark-primary hover:underline text-sm">

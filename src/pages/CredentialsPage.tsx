@@ -5,10 +5,12 @@ import { CREDENTIAL_TYPE_LABELS } from '../utils/labels'
 import type { CredentialStatus, CredentialType } from '../types'
 import PageHeader from '../components/common/PageHeader'
 import Badge from '../components/common/Badge'
+import { SkeletonCard, useSimulatedLoading } from '../components/common/Skeleton'
 
 const ALL_TYPES = Object.keys(CREDENTIAL_TYPE_LABELS) as CredentialType[]
 
 export default function CredentialsPage() {
+  const loading = useSimulatedLoading(350)
   const [showClosed, setShowClosed] = useState(false)
   const [typeFilter, setTypeFilter] = useState<string[]>([])
   const [providerFilter, setProviderFilter] = useState('')
@@ -124,7 +126,13 @@ export default function CredentialsPage() {
         </div>
       </div>
 
-      {visible.length === 0 ? (
+      {loading ? (
+        <div className="grid sm:grid-cols-2 gap-4" aria-busy="true" aria-label="Memuat credentials">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      ) : visible.length === 0 ? (
         <div className="p-8 border border-dashed border-border dark:border-dark-border rounded-xl text-center text-muted dark:text-dark-muted">
           Tidak ada entri yang cocok dengan filter.
         </div>
