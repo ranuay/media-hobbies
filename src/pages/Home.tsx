@@ -13,24 +13,24 @@ export default function Home() {
   return (
     <div>
       <section className="flex flex-col items-center text-center pt-12 pb-16">
-        <p className="text-xs uppercase tracking-widest text-muted mb-4">MVP v1.0</p>
+        <p className="text-xs uppercase tracking-widest text-muted dark:text-dark-muted mb-4">MVP v1.0</p>
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight max-w-2xl">
-          Satu peta belajar cybersecurity <span className="text-primary">lintas platform</span>.
+          Satu peta belajar cybersecurity <span className="text-primary dark:text-dark-primary">lintas platform</span>.
         </h1>
-        <p className="text-lg text-muted mt-4 max-w-xl">
+        <p className="text-lg text-muted dark:text-dark-muted mt-4 max-w-xl">
           Roadmap terstruktur, kurasi resource tepercaya, dan direktori credential gratis
           dengan status yang jujur.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 mt-8">
           <Link
             to="/roadmap"
-            className="px-6 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary-dark transition-colors"
+            className="px-6 py-3 bg-primary dark:bg-dark-primary text-white rounded-xl font-medium hover:bg-primary-dark dark:hover:bg-dark-primary-dark transition-colors"
           >
             Mulai Cybersecurity Fundamentals
           </Link>
           <Link
             to="/credentials"
-            className="px-6 py-3 border border-border text-foreground rounded-xl font-medium hover:bg-surface transition-colors"
+            className="px-6 py-3 border border-border dark:border-dark-border text-foreground dark:text-dark-foreground rounded-xl font-medium hover:bg-surface dark:hover:bg-dark-surface transition-colors"
           >
             Lihat Free Certificates & Badges
           </Link>
@@ -45,12 +45,12 @@ export default function Home() {
       </section>
 
       {completedCount > 0 && (
-        <section className="mb-12 p-5 bg-primary-light border border-primary/20 rounded-2xl">
-          <div className="text-sm text-muted">Progres lokal kamu</div>
+        <section className="mb-12 p-5 bg-primary-light dark:bg-dark-primary-light border border-primary/20 dark:border-dark-primary/20 rounded-2xl">
+          <div className="text-sm text-muted dark:text-dark-muted">Progres lokal kamu</div>
           <div className="text-2xl font-semibold mt-1">
             {completedCount} resource ditandai selesai
           </div>
-          <Link to="/progress" className="text-primary hover:underline text-sm mt-2 inline-block">
+          <Link to="/progress" className="text-primary dark:text-dark-primary hover:underline text-sm mt-2 inline-block">
             Kelola progres →
           </Link>
         </section>
@@ -79,18 +79,18 @@ export default function Home() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="p-4 border border-border rounded-xl bg-surface">
+    <div className="p-4 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface">
       <div className="text-2xl font-bold tracking-tight">{value}</div>
-      <div className="text-sm text-muted mt-1">{label}</div>
+      <div className="text-sm text-muted dark:text-dark-muted mt-1">{label}</div>
     </div>
   )
 }
 
 function FeatureCard({ title, description }: { title: string; description: string }) {
   return (
-    <div className="p-5 border border-border rounded-xl bg-surface">
+    <div className="p-5 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface">
       <h3 className="font-semibold mb-2">{title}</h3>
-      <p className="text-sm text-muted leading-relaxed">{description}</p>
+      <p className="text-sm text-muted dark:text-dark-muted leading-relaxed">{description}</p>
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from './context/ThemeContext'
 import { ProgressProvider } from './context/ProgressContext'
 import Navbar from './components/common/Navbar'
 import Footer from './components/common/Footer'
@@ -13,26 +14,28 @@ import AboutPage from './pages/AboutPage'
 
 function App() {
   return (
-    <ProgressProvider>
-      <Router>
-        <div className="min-h-screen bg-background text-foreground flex flex-col">
-          <Navbar />
-          <main className="mx-auto max-w-6xl px-4 pt-20 w-full flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/roadmap" element={<RoadmapPage />} />
-              <Route path="/topics/:topicId" element={<TopicDetailPage />} />
-              <Route path="/resources" element={<ResourcesPage />} />
-              <Route path="/credentials" element={<CredentialsPage />} />
-              <Route path="/credentials/:credentialId" element={<CredentialDetailPage />} />
-              <Route path="/progress" element={<ProgressPage />} />
-              <Route path="/about" element={<AboutPage />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
-    </ProgressProvider>
+    <ThemeProvider>
+      <ProgressProvider>
+        <Router>
+          <div className="min-h-screen bg-background dark:bg-dark-background text-foreground dark:text-dark-foreground flex flex-col">
+            <Navbar />
+            <main className="mx-auto max-w-6xl px-4 pt-20 w-full flex-1">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/roadmap" element={<RoadmapPage />} />
+                <Route path="/topics/:topicId" element={<TopicDetailPage />} />
+                <Route path="/resources" element={<ResourcesPage />} />
+                <Route path="/credentials" element={<CredentialsPage />} />
+                <Route path="/credentials/:credentialId" element={<CredentialDetailPage />} />
+                <Route path="/progress" element={<ProgressPage />} />
+                <Route path="/about" element={<AboutPage />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </ProgressProvider>
+    </ThemeProvider>
   )
 }
 

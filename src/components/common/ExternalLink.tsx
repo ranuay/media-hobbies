@@ -12,7 +12,10 @@ export default function ExternalLink({ href, children, className }: ExternalLink
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={className ?? 'text-primary hover:underline break-all'}
+      className={
+        className ??
+        'text-primary dark:text-dark-primary hover:underline break-all'
+      }
     >
       {children}
     </a>

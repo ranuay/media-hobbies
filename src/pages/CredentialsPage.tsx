@@ -1,9 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { credentials } from '../data/credentials'
-import {
-  CREDENTIAL_TYPE_LABELS,
-} from '../utils/labels'
+import { CREDENTIAL_TYPE_LABELS } from '../utils/labels'
 import type { CredentialStatus, CredentialType } from '../types'
 import PageHeader from '../components/common/PageHeader'
 import Badge from '../components/common/Badge'
@@ -40,10 +38,10 @@ export default function CredentialsPage() {
         description="Direktori credential dengan status yang transparan. Lihat bagian 'Yang gratis' dan 'Kemungkinan biaya tambahan' sebelum mendaftar."
       />
 
-      <div className="mb-6 p-5 border border-border bg-surface rounded-xl">
-        <div className="text-sm text-muted mb-2">
+      <div className="mb-6 p-5 border border-border dark:border-dark-border bg-surface dark:bg-dark-surface rounded-xl">
+        <div className="text-sm text-muted dark:text-dark-muted mb-2">
           Semua status diverifikasi dari halaman resmi pada{' '}
-          <strong className="text-foreground">4 Agustus 2026</strong>. Info program dapat berubah.
+          <strong className="text-foreground dark:text-dark-foreground">4 Agustus 2026</strong>. Info program dapat berubah.
         </div>
         <div className="flex flex-wrap gap-4 items-end">
           <div className="flex flex-wrap gap-1.5">
@@ -75,8 +73,8 @@ export default function CredentialsPage() {
               onClick={() => toggleType(t)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition ${
                 typeFilter.includes(t)
-                  ? 'bg-primary text-white border-primary'
-                  : 'border-border text-muted hover:bg-surface'
+                  ? 'bg-primary dark:bg-dark-primary text-white border-primary dark:border-dark-primary'
+                  : 'border-border dark:border-dark-border text-muted dark:text-dark-muted hover:bg-surface dark:hover:bg-dark-surface'
               }`}
             >
               {CREDENTIAL_TYPE_LABELS[t]}
@@ -85,14 +83,14 @@ export default function CredentialsPage() {
         </div>
 
         <div>
-          <label htmlFor="provider" className="text-xs text-muted block mb-1">
+          <label htmlFor="provider" className="text-xs text-muted dark:text-dark-muted block mb-1">
             Provider
           </label>
           <select
             id="provider"
             value={providerFilter}
             onChange={(e) => setProviderFilter(e.target.value)}
-            className="px-3 py-1.5 border border-border rounded-lg bg-surface text-sm"
+            className="px-3 py-1.5 border border-border dark:border-dark-border rounded-lg bg-surface dark:bg-dark-surface text-sm"
           >
             <option value="">Semua provider</option>
             {providers.map((p) => (
@@ -105,7 +103,7 @@ export default function CredentialsPage() {
       </div>
 
       {visible.length === 0 ? (
-        <div className="p-8 border border-dashed border-border rounded-xl text-center text-muted">
+        <div className="p-8 border border-dashed border-border dark:border-dark-border rounded-xl text-center text-muted dark:text-dark-muted">
           Tidak ada entri yang cocok dengan filter.
         </div>
       ) : (
@@ -114,10 +112,10 @@ export default function CredentialsPage() {
             <li key={c.id}>
               <Link
                 to={`/credentials/${c.id}`}
-                className="block p-5 border border-border rounded-xl bg-surface hover:border-primary/50 hover:shadow-sm transition h-full"
+                className="block p-5 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface hover:border-primary/50 dark:hover:border-dark-primary/50 hover:shadow-sm transition h-full"
               >
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-xs text-muted font-medium">{c.provider}</span>
+                  <span className="text-xs text-muted dark:text-dark-muted font-medium">{c.provider}</span>
                   <StatusBadge status={c.status} />
                 </div>
                 <h3 className="font-semibold leading-snug">{c.name}</h3>
@@ -141,10 +139,22 @@ export default function CredentialsPage() {
 
 function StatusBadge({ status }: { status: CredentialStatus }) {
   const map: Record<CredentialStatus, { label: string; className: string }> = {
-    active: { label: 'Aktif', className: 'bg-green-100 text-green-800' },
-    limited: { label: 'Akses terbatas', className: 'bg-amber-100 text-amber-800' },
-    unverified: { label: 'Belum terverifikasi', className: 'bg-border/70 text-foreground' },
-    closed: { label: 'Ditutup', className: 'bg-red-100 text-red-800' },
+    active: {
+      label: 'Aktif',
+      className: 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300',
+    },
+    limited: {
+      label: 'Akses terbatas',
+      className: 'bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300',
+    },
+    unverified: {
+      label: 'Belum terverifikasi',
+      className: 'bg-border/70 dark:bg-dark-border text-foreground dark:text-dark-foreground',
+    },
+    closed: {
+      label: 'Ditutup',
+      className: 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300',
+    },
   }
   const { label, className } = map[status]
   return (

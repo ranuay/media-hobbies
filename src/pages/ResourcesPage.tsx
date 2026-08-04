@@ -42,10 +42,7 @@ export default function ResourcesPage() {
     return resources.filter((r) => {
       if (search) {
         const s = search.toLowerCase()
-        if (
-          !r.title.toLowerCase().includes(s) &&
-          !r.provider.toLowerCase().includes(s)
-        ) {
+        if (!r.title.toLowerCase().includes(s) && !r.provider.toLowerCase().includes(s)) {
           return false
         }
       }
@@ -78,7 +75,7 @@ export default function ResourcesPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Judul atau provider..."
-              className="w-full mt-1 px-3 py-2 border border-border rounded-lg bg-surface text-sm focus:border-primary focus:outline-none"
+              className="w-full mt-1 px-3 py-2 border border-border dark:border-dark-border rounded-lg bg-surface dark:bg-dark-surface text-sm focus:border-primary dark:focus:border-dark-primary focus:outline-none"
             />
           </div>
 
@@ -141,21 +138,21 @@ export default function ResourcesPage() {
 
           <button
             onClick={reset}
-            className="w-full px-3 py-2 border border-border rounded-lg text-sm hover:bg-surface transition"
+            className="w-full px-3 py-2 border border-border dark:border-dark-border rounded-lg text-sm hover:bg-surface dark:hover:bg-dark-surface transition"
           >
             Reset semua filter
           </button>
         </aside>
 
         <div>
-          <div className="text-sm text-muted mb-4">
+          <div className="text-sm text-muted dark:text-dark-muted mb-4">
             {filtered.length} resource
           </div>
 
           {filtered.length === 0 ? (
-            <div className="p-8 border border-dashed border-border rounded-xl text-center">
-              <p className="text-muted mb-3">Tidak ada resource yang cocok dengan filter saat ini.</p>
-              <button onClick={reset} className="text-primary hover:underline text-sm">
+            <div className="p-8 border border-dashed border-border dark:border-dark-border rounded-xl text-center">
+              <p className="text-muted dark:text-dark-muted mb-3">Tidak ada resource yang cocok dengan filter saat ini.</p>
+              <button onClick={reset} className="text-primary dark:text-dark-primary hover:underline text-sm">
                 Reset filter
               </button>
             </div>
@@ -164,10 +161,10 @@ export default function ResourcesPage() {
               {filtered.map((r) => (
                 <li
                   key={r.id}
-                  className="p-4 border border-border rounded-xl bg-surface hover:border-primary/50 transition"
+                  className="p-4 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface hover:border-primary/50 dark:hover:border-dark-primary/50 transition"
                 >
                   <h3 className="font-medium">{r.title}</h3>
-                  <div className="text-sm text-muted mt-1">{r.provider}</div>
+                  <div className="text-sm text-muted dark:text-dark-muted mt-1">{r.provider}</div>
                   <div className="flex flex-wrap gap-1.5 mt-2">
                     <Badge tone="primary">{FORMAT_LABELS[r.format]}</Badge>
                     <Badge tone={costTone(r.accessCost)}>{COST_LABELS[r.accessCost]}</Badge>
@@ -189,8 +186,8 @@ export default function ResourcesPage() {
 
 function FilterGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <fieldset className="border border-border rounded-xl p-3">
-      <legend className="text-xs uppercase tracking-wider text-muted px-1">{title}</legend>
+    <fieldset className="border border-border dark:border-dark-border rounded-xl p-3">
+      <legend className="text-xs uppercase tracking-wider text-muted dark:text-dark-muted px-1">{title}</legend>
       <div className="space-y-1.5">{children}</div>
     </fieldset>
   )
@@ -207,12 +204,7 @@ function Checkbox({
 }) {
   return (
     <label className="flex items-center gap-2 text-sm cursor-pointer">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-        className="accent-primary"
-      />
+      <input type="checkbox" checked={checked} onChange={onChange} className="accent-primary" />
       {label}
     </label>
   )
