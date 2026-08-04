@@ -12,6 +12,7 @@ import CredentialDetailPage from './pages/CredentialDetailPage'
 import SpecializationsPage from './pages/SpecializationsPage'
 import ProgressPage from './pages/ProgressPage'
 import AboutPage from './pages/AboutPage'
+import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/specializations" element={<SpecializationsPage />} />
                 <Route path="/progress" element={<ProgressPage />} />
                 <Route path="/about" element={<AboutPage />} />
+                <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </main>
             <Footer />
