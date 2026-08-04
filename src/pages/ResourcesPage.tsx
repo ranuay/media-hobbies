@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { resources } from '../data/resources'
 import {
   COST_LABELS,
@@ -14,6 +14,7 @@ const ALL_FORMATS = Object.keys(FORMAT_LABELS) as (keyof typeof FORMAT_LABELS)[]
 const ALL_LEVELS = Object.keys(LEVEL_LABELS) as (keyof typeof LEVEL_LABELS)[]
 const ALL_COSTS = Object.keys(COST_LABELS) as (keyof typeof COST_LABELS)[]
 const ALL_PRACTICE = Object.keys(PRACTICE_LABELS) as (keyof typeof PRACTICE_LABELS)[]
+const PER_PAGE = 6
 
 export default function ResourcesPage() {
   const [search, setSearch] = useState('')
@@ -23,6 +24,7 @@ export default function ResourcesPage() {
   const [practice, setPractice] = useState<string[]>([])
   const [needsAccount, setNeedsAccount] = useState(false)
   const [needsLab, setNeedsLab] = useState(false)
+  const [page, setPage] = useState(1)
 
   const toggle = (list: string[], setter: (v: string[]) => void, value: string) => {
     setter(list.includes(value) ? list.filter((v) => v !== value) : [...list, value])
@@ -55,6 +57,16 @@ export default function ResourcesPage() {
       return true
     })
   }, [search, formats, levels, costs, practice, needsAccount, needsLab])
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE))
+
+  // reset page when filters change
+  useEffect(() => {
+    setPage(1)
+  }, [filtered.length])
+
+  const start = (page - 1) * PER_PAGE
+  const pageItems = filtered.slice(start, start + PER_PAGE)
 
   return (
     <div>
@@ -158,26 +170,64 @@ export default function ResourcesPage() {
               </button>
             </div>
           ) : (
-            <ul className="space-y-3">
-              {filtered.map((r) => (
-                <li
-                  key={r.id}
-                  className="p-4 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface hover:border-primary/50 dark:hover:border-dark-primary/50 transition"
-                >
-                  <h3 className="font-medium">{r.title}</h3>
-                  <div className="text-sm text-muted dark:text-dark-muted mt-1">{r.provider}</div>
-                  <div className="flex flex-wrap gap-1.5 mt-2">
-                    <Badge tone="primary">{FORMAT_LABELS[r.format]}</Badge>
-                    <Badge tone={costTone(r.accessCost)}>{COST_LABELS[r.accessCost]}</Badge>
-                    <Badge tone="default">{LEVEL_LABELS[r.level]}</Badge>
-                    <Badge tone="default">{PRACTICE_LABELS[r.theoryPractice]}</Badge>
+            <>
+              <ul className="space-y-3">
+                {pageItems.map((r) => (
+                  <li
+                    key={r.id}
+                    className="p-4 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface hover:border-primary/50 dark:hover:border-dark-primary/50 transition"
+                  >
+                    <h3 className="font-medium">{r.title}</h3>
+                    <div className="text-sm text-muted dark:text-dark-muted mt-1">{r.provider}</div>
+                    <div className="flex flex-wrap gap-1.5 mt-2">
+                      <Badge tone="primary">{FORMAT_LABELS[r.format]}</Badge>
+                      <Badge tone={costTone(r.accessCost)}>{COST_LABELS[r.accessCost]}</Badge>
+                      <Badge tone="default">{LEVEL_LABELS[r.level]}</Badge>
+                      <Badge tone="default">{PRACTICE_LABELS[r.theoryPractice]}</Badge>
+                    </div>
+                    <div className="mt-2 text-sm">
+                      <ExternalLink href={r.officialUrl}>Buka resource ↗</ExternalLink>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <nav className="mt-6 flex items-center justify-between">
+                  <button
+                    onClick={() => setPage((p) => p - 1)}
+                    disabled={page <= 1}
+                    className="px-4 py-2 border border-border dark:border-dark-border rounded-lg text-sm font-medium disabled:opacity-30 disabled:cursor-not-allowed hover:bg-surface dark:hover:bg-dark-surface transition"
+                  >
+                    ← Sebelumnya
+                  </button>
+
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                      <button
+                        key={n}
+                        onClick={() => setPage(n)}
+                        className={`w-9 h-9 rounded-lg text-sm font-medium transition ${
+                          n === page
+                            ? 'bg-primary dark:bg-dark-primary text-white'
+                            : 'border border-border dark:border-dark-border text-muted dark:text-dark-muted hover:bg-surface dark:hover:bg-dark-surface'
+                        }`}
+                      >
+                        {n}
+                      </button>
+                    ))}
                   </div>
-                  <div className="mt-2 text-sm">
-                    <ExternalLink href={r.officialUrl}>Buka resource ↗</ExternalLink>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  <button
+                    onClick={() => setPage((p) => p + 1)}
+                    disabled={page >= totalPages}
+                    className="px-4 py-2 border border-border dark:border-dark-border rounded-lg text-sm font-medium disabled:opacity-30 disabled:cursor-not-allowed hover:bg-surface dark:hover:bg-dark-surface transition"
+                  >
+                    Berikutnya →
+                  </button>
+                </nav>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -211,6 +261,7 @@ function Checkbox({
   )
 }
 
+// rarr shorthand di JSX di-resolve saat build
 function costTone(c: 'free' | 'freemium' | 'paid'): 'green' | 'amber' | 'red' {
   return ({ free: 'green', freemium: 'amber', paid: 'red' } as const)[c]
 }
