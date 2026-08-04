@@ -6,6 +6,7 @@ const NAV_ITEMS = [
   { to: '/roadmap', label: 'Roadmap' },
   { to: '/resources', label: 'Resources' },
   { to: '/credentials', label: 'Credentials' },
+  { to: '/specializations', label: 'Spesialisasi' },
   { to: '/progress', label: 'Progres' },
 ]
 

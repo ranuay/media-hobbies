@@ -35,7 +35,7 @@ export default function CredentialDetailPage() {
       </header>
 
       <div className="grid sm:grid-cols-2 gap-4 mb-8">
-        <FactCard label="Yang gratis">
+        <FactCard label="Biaya">
           <div className="space-y-1 text-sm">
             <div>
               <strong>Akses kursus:</strong> {credential.courseFree ? '✓ Gratis' : '✗ Tidak gratis'}
@@ -49,6 +49,11 @@ export default function CredentialDetailPage() {
                 <strong>Exam:</strong> {credential.examFree ? '✓ Gratis' : '✗ Tidak gratis'}
               </div>
             )}
+            {credential.costRange && (
+              <div>
+                <strong>Perkiraan biaya:</strong> {credential.costRange}
+              </div>
+            )}
           </div>
         </FactCard>
 
@@ -59,6 +64,31 @@ export default function CredentialDetailPage() {
             <p className="text-sm text-muted dark:text-dark-muted">Tidak ada informasi tambahan.</p>
           )}
         </FactCard>
+
+        {credential.examFormat && (
+          <FactCard label="Format ujian">
+            <p className="text-sm leading-relaxed">{credential.examFormat}</p>
+          </FactCard>
+        )}
+
+        {(credential.validityPeriod || credential.renewalRequired !== undefined) && (
+          <FactCard label="Masa berlaku & renewal">
+            <div className="space-y-1 text-sm">
+              {credential.validityPeriod && (
+                <div>
+                  <strong>Berlaku:</strong> {credential.validityPeriod}
+                </div>
+              )}
+              {credential.renewalRequired !== undefined && (
+                <div>
+                  <strong>Wajib renewal:</strong>{' '}
+                  {credential.renewalRequired ? 'Ya' : 'Tidak'}
+                  {credential.renewalPeriod ? ` — ${credential.renewalPeriod}` : ''}
+                </div>
+              )}
+            </div>
+          </FactCard>
+        )}
 
         {credential.extraCosts && (
           <FactCard label="Kemungkinan biaya tambahan">

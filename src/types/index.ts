@@ -39,13 +39,40 @@ export interface Credential {
   officialUrl: string
   type: CredentialType
   status: CredentialStatus
+  difficulty?: Level
   courseFree: boolean
   credentialFree: boolean
   examFree?: boolean
+  costRange?: string
+  examFormat?: string
+  validityPeriod?: string
+  renewalRequired?: boolean
+  renewalPeriod?: string
   extraCosts?: string
   eligibility?: string
   evidenceNote: string
   lastVerifiedAt: string
+}
+
+export interface Specialization {
+  id: string
+  title: string
+  role: string
+  summary: string
+  skills: string[]
+  steps: string[]
+  certs: {
+    name: string
+    provider: string
+    costHint: string
+    url: string
+  }[]
+  resources: {
+    title: string
+    provider: string
+    url: string
+  }[]
+  timeToEntry: string
 }
 
 export interface RoadmapTopic {

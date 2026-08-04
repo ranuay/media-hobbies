@@ -116,6 +116,21 @@ export default function RoadmapPage() {
           )
         })}
       </div>
+
+      <div className="mt-10 p-6 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface text-center">
+        <div className="eyebrow mb-2">selesai semua topik?</div>
+        <h2 className="font-display text-xl font-semibold mb-2">Lanjut ke spesialisasi</h2>
+        <p className="text-sm text-muted dark:text-dark-muted mb-4 max-w-xl mx-auto">
+          Penetration Testing, SOC Analyst, Cloud Security, Forensics, atau AppSec — lengkap dengan
+          skill, sertifikasi target, dan resource lanjutannya.
+        </p>
+        <Link
+          to="/specializations"
+          className="inline-block px-5 py-2.5 bg-primary dark:bg-dark-primary text-white rounded-lg font-medium hover:opacity-90 transition"
+        >
+          Lihat jalur karir →
+        </Link>
+      </div>
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { resources } from '../data/resources'
 import { topics } from '../data/topics'
 import { credentials } from '../data/credentials'
+import { specializations } from '../data/specializations'
 
 const VALID_LEVELS = ['beginner', 'intermediate', 'advanced']
 const VALID_FORMATS = ['course', 'article', 'video', 'lab', 'book', 'challenge']
@@ -98,6 +99,46 @@ describe('seed data validation', () => {
     for (const c of credentials.filter((x) => x.status === 'closed')) {
       expect(c.credentialFree).toBe(false)
       expect(c.courseFree).toBe(false)
+    }
+  })
+
+  it('should have at least 10 credentials with professional certifications added', () => {
+    expect(credentials.length).toBeGreaterThanOrEqual(10)
+    const prof = credentials.filter((c) => c.type === 'professional-certification')
+    expect(prof.length).toBeGreaterThanOrEqual(4)
+  })
+
+  it('renewable credentials should document the renewal period', () => {
+    for (const c of credentials.filter((x) => x.renewalRequired)) {
+      expect(c.renewalPeriod, `${c.id} needs renewalPeriod`).toBeTruthy()
+      expect(c.validityPeriod, `${c.id} needs validityPeriod`).toBeTruthy()
+    }
+  })
+
+  it('free NSE 1-3 credential should be fully free including exam', () => {
+    const nse = credentials.find((c) => c.id === 'fortinet-nse-1-3')
+    expect(nse).toBeDefined()
+    expect(nse!.courseFree).toBe(true)
+    expect(nse!.credentialFree).toBe(true)
+    expect(nse!.examFree).toBe(true)
+    expect(nse!.costRange).toBe('Gratis (USD 0) — termasuk ujian NSE 2 & 3')
+  })
+
+  it('should have at least 5 specializations with certs and resources', () => {
+    expect(specializations.length).toBeGreaterThanOrEqual(5)
+    const ids = specializations.map((s) => s.id)
+    expect(new Set(ids).size).toBe(ids.length)
+    for (const s of specializations) {
+      expect(s.skills.length).toBeGreaterThanOrEqual(3)
+      expect(s.steps.length).toBeGreaterThanOrEqual(3)
+      expect(s.certs.length).toBeGreaterThanOrEqual(2)
+      expect(s.resources.length).toBeGreaterThanOrEqual(2)
+      for (const cert of s.certs) {
+        expect(cert.url).toMatch(/^https:\/\//)
+      }
+      for (const r of s.resources) {
+        expect(r.url).toMatch(/^https:\/\//)
+      }
     }
   })
 })

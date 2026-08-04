@@ -9,6 +9,7 @@ import TopicDetailPage from './pages/TopicDetailPage'
 import ResourcesPage from './pages/ResourcesPage'
 import CredentialsPage from './pages/CredentialsPage'
 import CredentialDetailPage from './pages/CredentialDetailPage'
+import SpecializationsPage from './pages/SpecializationsPage'
 import ProgressPage from './pages/ProgressPage'
 import AboutPage from './pages/AboutPage'
 
@@ -27,6 +28,7 @@ function App() {
                 <Route path="/resources" element={<ResourcesPage />} />
                 <Route path="/credentials" element={<CredentialsPage />} />
                 <Route path="/credentials/:credentialId" element={<CredentialDetailPage />} />
+                <Route path="/specializations" element={<SpecializationsPage />} />
                 <Route path="/progress" element={<ProgressPage />} />
                 <Route path="/about" element={<AboutPage />} />
               </Routes>
