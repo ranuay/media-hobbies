@@ -102,10 +102,26 @@ describe('seed data validation', () => {
     }
   })
 
-  it('should have at least 10 credentials with professional certifications added', () => {
-    expect(credentials.length).toBeGreaterThanOrEqual(10)
+  it('should have at least 14 credentials with professional certifications added', () => {
+    expect(credentials.length).toBeGreaterThanOrEqual(14)
     const prof = credentials.filter((c) => c.type === 'professional-certification')
-    expect(prof.length).toBeGreaterThanOrEqual(4)
+    expect(prof.length).toBeGreaterThanOrEqual(5)
+  })
+
+  it('free training must not overclaim exam-free professional certs', () => {
+    const microsoftCerts = credentials.filter(
+      (c) => c.type === 'professional-certification' && c.provider === 'Microsoft'
+    )
+    for (const c of microsoftCerts) {
+      expect(c.examFree, `${c.id} exam is not free`).toBe(false)
+      expect(c.credentialFree, `${c.id} credential is not free`).toBe(false)
+    }
+  })
+
+  it('training-only credentials must never claim free credential', () => {
+    for (const c of credentials.filter((x) => x.type === 'training-only')) {
+      expect(c.credentialFree).toBe(false)
+    }
   })
 
   it('renewable credentials should document the renewal period', () => {
