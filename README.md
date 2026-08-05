@@ -30,12 +30,11 @@ npm run lint      # oxlint
 
 ## Deploy
 
-Deploy ke Cloudflare Pages lewat Git integration. File `public/_redirects` (SPA rewrite) dan `public/_headers` (security headers) sudah disiapkan sehingga route seperti `/roadmap` dan `/topics/:id` tidak 404 saat di-refresh.
+Deploy ke Cloudflare Pages / Workers static assets lewat Git integration. Config `wrangler.jsonc` menggunakan `assets.not_found_handling = "single-page-application"` sehingga route seperti `/roadmap` dan `/topics/:id` tetap tersaji saat di-refresh tanpa 404. Security headers diatur via `public/_headers`.
 
 Build config:
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Node version: `20`
 
 ## Struktur
 
