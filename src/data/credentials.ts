@@ -243,7 +243,7 @@ export const credentials: Credential[] = [
     resourceId: 'tryhackme-pre-security-path',
     provider: 'TryHackMe',
     name: 'Pre Security Learning Path — Certificate of Completion',
-    officialUrl: 'https://tryhackme.com/path/outline/pre-security',
+    officialUrl: 'https://tryhackme.com/path/outline/presecurity',
     type: 'course-certificate',
     status: 'active',
     difficulty: 'beginner',

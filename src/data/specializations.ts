@@ -97,7 +97,7 @@ export const specializations: Specialization[] = [
       {
         title: 'SOC Level 1 Path',
         provider: 'TryHackMe',
-        url: 'https://tryhackme.com/path-outline/soclevel1',
+        url: 'https://tryhackme.com/path/outline/soclevel1',
       },
       {
         title: 'MITRE ATT&CK',
@@ -208,7 +208,7 @@ export const specializations: Specialization[] = [
       {
         title: 'DFIR Path',
         provider: 'TryHackMe',
-        url: 'https://tryhackme.com/path-outline/dfir',
+        url: 'https://tryhackme.com/paths',
       },
     ],
     timeToEntry: '± 9–12 bulan dari nol',
