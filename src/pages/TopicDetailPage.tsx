@@ -37,6 +37,28 @@ export default function TopicDetailPage() {
       </Link>
       <PageHeader title={topic.title} description={topic.summary} />
 
+      {/* PROGRESS RINGKASAN */}
+      <section className="mb-8 p-5 border border-border dark:border-dark-border bg-surface dark:bg-dark-surface rounded-xl">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div className="eyebrow">progres topik</div>
+          <div className="text-xs text-muted dark:text-dark-muted">
+            Selesaikan resource wajib, lalu centang checklist sebelum lanjut.
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <ProgressBar
+            label="Resource wajib"
+            done={primaryResources.filter((r) => r && isResourceComplete(r.id)).length}
+            total={primaryResources.length}
+          />
+          <ProgressBar
+            label="Checklist"
+            done={topic.checklist.filter((item) => isChecklistItemChecked(topic.id, item)).length}
+            total={topic.checklist.length}
+          />
+        </div>
+      </section>
+
       {prerequisiteTopics.length > 0 && (
         <section className="mb-8 p-5 border border-amber-200 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
           <h2 className="font-semibold mb-2">Prasyarat</h2>
@@ -219,4 +241,24 @@ function costTone(c: string): 'green' | 'amber' | 'red' {
 
 function levelLabel(l: string): string {
   return { beginner: 'Pemula', intermediate: 'Menengah', advanced: 'Lanjutan' }[l] || l
+}
+
+function ProgressBar({ label, done, total }: { label: string; done: number; total: number }) {
+  const pct = total === 0 ? 0 : Math.round((done / total) * 100)
+  return (
+    <div>
+      <div className="flex items-center justify-between text-sm mb-1.5">
+        <span className="text-muted dark:text-dark-muted">{label}</span>
+        <span className="stat-number">
+          {done}/{total}
+        </span>
+      </div>
+      <div className="h-2 bg-border dark:bg-dark-border rounded-full overflow-hidden">
+        <div
+          className="h-full bg-primary dark:bg-dark-primary rounded-full transition-all duration-500"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+    </div>
+  )
 }

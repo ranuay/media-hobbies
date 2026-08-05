@@ -50,6 +50,7 @@ export interface Credential {
   renewalPeriod?: string
   extraCosts?: string
   eligibility?: string
+  whenUseful?: string
   evidenceNote: string
   lastVerifiedAt: string
 }

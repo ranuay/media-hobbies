@@ -78,6 +78,31 @@ export default function Home() {
         </section>
       )}
 
+      {/* CARA PAKAI */}
+      <section className="mb-12">
+        <div className="flex items-center gap-3 mb-6">
+          <h2 className="font-display text-2xl font-bold">Cara pakai CyberPath</h2>
+          <div className="hidden sm:block node-line flex-1" />
+        </div>
+        <div className="grid sm:grid-cols-3 gap-4">
+          <HowToStep
+            index="01"
+            title="Ikuti roadmap berurutan"
+            description="Mulai dari topik 1. Tiap topik punya prasyarat — jangan loncat sebelum fondasinya kuat."
+          />
+          <HowToStep
+            index="02"
+            title="Centang resource wajib"
+            description="Progress dihitung dari resource wajib yang kamu tandai selesai. Resource alternatif hanya cadangan."
+          />
+          <HowToStep
+            index="03"
+            title="Ambil credential, lalu pilih jalur"
+            description="Setelah roadmap selesai, cek direktori credential gratis dan pilih spesialisasi yang kamu tuju."
+          />
+        </div>
+      </section>
+
       {/* FEATURES */}
       <section>
         <div className="flex items-center gap-3 mb-6">
@@ -136,6 +161,28 @@ function FeatureCard({
     <div className="group p-5 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface hover:border-primary/40 dark:hover:border-dark-primary/40 hover:-translate-y-0.5 transition">
       <div className="eyebrow mb-3">{index}</div>
       <h3 className="font-display font-semibold mb-2">{title}</h3>
+      <p className="text-sm text-muted dark:text-dark-muted leading-relaxed">{description}</p>
+    </div>
+  )
+}
+
+function HowToStep({
+  index,
+  title,
+  description,
+}: {
+  index: string
+  title: string
+  description: string
+}) {
+  return (
+    <div className="p-5 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface">
+      <div className="flex items-center gap-3 mb-3">
+        <span className="w-8 h-8 flex items-center justify-center rounded-full bg-primary-light dark:bg-dark-primary-light text-primary-dark dark:text-dark-primary-dark stat-number text-sm font-bold">
+          {index}
+        </span>
+        <h3 className="font-display font-semibold">{title}</h3>
+      </div>
       <p className="text-sm text-muted dark:text-dark-muted leading-relaxed">{description}</p>
     </div>
   )

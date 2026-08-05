@@ -15,6 +15,7 @@ export const credentials: Credential[] = [
     costRange: 'Gratis (USD 0)',
     eligibility: 'Membuka akun Cisco; selesaikan kursus dan final exam.',
     extraCosts: 'Tidak ada biaya untuk badge standar.',
+    whenUseful: 'Bukti menyelesaikan pengantar keamanan Cisco — cocok untuk pemula total.',
     evidenceNote:
       'Digital badge Cisco/Networking Academy. Bukan CCST dan bukan sertifikasi profesional.',
     lastVerifiedAt: '2026-08-04',
@@ -33,6 +34,7 @@ export const credentials: Credential[] = [
     credentialFree: true,
     costRange: 'Gratis (USD 0)',
     eligibility: 'Aktivitas course terpenuhi; akun Open diperlukan untuk mengunduh bukti.',
+    whenUseful: 'Bukti belajar dari universitas terakreditasi — pengantar yang santai untuk pemula.',
     evidenceNote:
       'Free Statement of Participation dan digital badge setelah memenuhi ketentuan course. Tidak terakreditasi sebagai kualifikasi universitas.',
     lastVerifiedAt: '2026-08-04',
@@ -50,6 +52,7 @@ export const credentials: Credential[] = [
     credentialFree: true,
     costRange: 'Gratis (USD 0)',
     eligibility: 'IBMid; selesaikan seluruh persyaratan program.',
+    whenUseful: 'Bukti belajar dasar keamanan dari IBM — cepat, ~2 jam, cocok untuk pemula.',
     evidenceNote: 'Digital credential dari IBM SkillsBuild, bukan sertifikasi profesional IBM.',
     lastVerifiedAt: '2026-08-04',
   },
@@ -66,6 +69,7 @@ export const credentials: Credential[] = [
     costRange: 'Gratis (program institusi)',
     eligibility:
       'Akses terbatas: ditujukan untuk institusi terdaftar (college/university). Tidak otomatis terbuka untuk semua individu.',
+    whenUseful: 'Relevan jika kamu mahasiswa di kampus mitra IBM — bukan jalur untuk umum.',
     evidenceNote:
       'Program certificate melalui institusi yang memenuhi syarat. Bukan sertifikasi profesional IBM.',
     lastVerifiedAt: '2026-08-04',
@@ -84,6 +88,7 @@ export const credentials: Credential[] = [
     costRange: 'Gratis (USD 0)',
     eligibility: 'Buat akun Fortinet.',
     extraCosts: 'On-demand lab dan sebagian ujian dapat berbayar.',
+    whenUseful: 'Pengantar keamanan jaringan Fortinet — batu loncatan sebelum NSE 1-3.',
     evidenceNote:
       'Badge/training achievement sesuai ketentuan level. Jangan otomatis disebut sertifikasi profesional.',
     lastVerifiedAt: '2026-08-04',
@@ -103,6 +108,7 @@ export const credentials: Credential[] = [
     validityPeriod: 'Program NSE diperbarui per Juli 2026 — cek syarat terbaru',
     renewalRequired: false,
     eligibility: 'Buat akun Fortinet Training Institute, selesaikan modul NSE 1, 2, lalu 3.',
+    whenUseful: 'Cocok setelah beberapa topik roadmap — jalur entry ke networking & security.',
     evidenceNote:
       'Training NSE self-paced Level 1–3 resmi gratis. Program NSE dirombak per 15 Juli 2026 (level 5→8, track baru) — verifikasi biaya exam & masa berlaku ke halaman resmi sebelum klaim.',
     lastVerifiedAt: '2026-08-05',
@@ -126,6 +132,7 @@ export const credentials: Credential[] = [
     renewalPeriod: 'Renewal per 3 tahun',
     eligibility: 'Tidak ada prasyarat resmi; materi sejalan dengan roadmap CyberPath.',
     extraCosts: 'Biaya ujian per sesi; tidak ada biaya tahunan (CE) untuk CCST.',
+    whenUseful: 'Cocok setelah Networking & Security Principles — sertifikasi entry yang diakui.',
     evidenceNote:
       'Sertifikasi entry-level resmi Cisco. Cakupannya cocok setelah fondasi: networking, Linux, dan security basics.',
     lastVerifiedAt: '2026-08-04',
@@ -149,6 +156,7 @@ export const credentials: Credential[] = [
     eligibility:
       'Disarankan pengalaman 2 tahun IT (opsional) dan sertifikasi Network+ (opsional), bukan wajib.',
     extraCosts: 'Biaya ujian; biaya CE dan annual fee mengikuti keanggotaan CompTIA.',
+    whenUseful: 'Standar industri — target setelah menyelesaikan roadmap, sering jadi syarat lowongan SOC/junior.',
     evidenceNote:
       'Sertifikasi keamanan entry-level paling dikenal di industri. Berbayar, tetapi sering jadi syarat lowongan SOC/junior.',
     lastVerifiedAt: '2026-08-04',
@@ -169,6 +177,7 @@ export const credentials: Credential[] = [
     validityPeriod: 'Sertifikasi Microsoft Fundamentals tidak memiliki masa berlaku',
     renewalRequired: false,
     eligibility: 'Tidak ada prasyarat; pelajari learning path gratis di Microsoft Learn.',
+    whenUseful: 'Cocok setelah Security Principles — fondasi security/identity ekosistem Microsoft.',
     evidenceNote:
       'Fondasi keamanan, compliance, dan identity di ekosistem Microsoft. Ujiannya berbayar, materinya gratis.',
     lastVerifiedAt: '2026-08-04',
@@ -190,6 +199,7 @@ export const credentials: Credential[] = [
     eligibility:
       'Tidak ada prasyarat; selesaikan seluruh course dalam program di Coursera.',
     extraCosts: 'Langganan Coursera bulanan; financial aid dapat meng-cover biaya.',
+    whenUseful: 'Jalur intensif menuju SOC entry — pertimbangkan setelah roadmap, jika siap investasi waktu & biaya.',
     evidenceNote:
       'Bukan sertifikasi ujian; certificate diterbitkan Coursera setelah menyelesaikan program. Umum dipakai sebagai jalur masuk IT support/SOC entry.',
     lastVerifiedAt: '2026-08-04',
@@ -210,6 +220,7 @@ export const credentials: Credential[] = [
     validityPeriod: 'Sertifikasi Microsoft Fundamentals tidak memiliki masa berlaku',
     renewalRequired: false,
     eligibility: 'Tidak ada prasyarat; pelajari learning path gratis di Microsoft Learn.',
+    whenUseful: 'Cocok untuk spesialisasi Cloud Security — fondasi Azure sebelum SC-900.',
     evidenceNote:
       'Fondasi cloud Azure: komputasi, storage, networking, dan konsep keamanan cloud. Pasangan yang natural untuk SC-900.',
     lastVerifiedAt: '2026-08-05',
@@ -233,6 +244,7 @@ export const credentials: Credential[] = [
       'Buat akun AWS Skill Builder (gratis); selesaikan misi gamified di role Cloud Practitioner.',
     extraCosts:
       'Akun free tier mendapat akses terbatas ke Cloud Quest; misi lengkap mungkin memerlukan langganan Skill Builder.',
+    whenUseful: 'Pengenalan cloud AWS yang menyenangkan — bukti belajar, bukan sertifikasi profesional.',
     evidenceNote:
       'Digital badge dari AWS Skill Builder setelah menyelesaikan Cloud Quest. Bukan sertifikasi ujian AWS resmi — itu adalah badge learning dengan akses free terbatas.',
     lastVerifiedAt: '2026-08-05',
@@ -256,6 +268,7 @@ export const credentials: Credential[] = [
     eligibility: 'Buat akun TryHackMe; selesaikan semua modul di path Pre Security.',
     extraCosts:
       'Sebagian besar path Pre Security gratis; beberapa room atau hint mungkin memerlukan subscription berbayar.',
+    whenUseful: 'Bukti menyelesaikan path pemula — cocok setelah topik 1-3 roadmap.',
     evidenceNote:
       'Certificate of completion TryHackMe. Bukan sertifikasi profesional, tapi bukti menyelesaikan learning path pemula. Disarankan validasi harga sebelum klaim sepenuhnya gratis.',
     lastVerifiedAt: '2026-08-05',
@@ -276,6 +289,7 @@ export const credentials: Credential[] = [
     examFormat: 'Ujian online resmi PortSwigger (berbayar)',
     eligibility: 'Buat akun PortSwigger.',
     extraCosts: 'Training lab gratis; exam "Get certified" berbayar.',
+    whenUseful: 'Training lab terbaik untuk Web Security Basics — pakai sebagai resource praktik, bukan credential.',
     evidenceNote:
       'Training lab gratis, tetapi sertifikasi PortSwigger melalui exam berbayar. Jangan mengklaim ada credential gratis.',
     lastVerifiedAt: '2026-08-05',
@@ -299,6 +313,7 @@ export const credentials: Credential[] = [
     extraCosts:
       'Program gratis 1MCC ditutup untuk pendaftar baru setelah 20 Mei 2026. Jalur standar memiliki biaya ujian dan annual maintenance fee sesuai ketentuan ISC2.',
     eligibility: 'Program One Million Certified sudah ditutup untuk pendaftar baru.',
+    whenUseful: 'Ditutup untuk pendaftar baru — disimpan sebagai contoh transparansi status.',
     evidenceNote:
       'Kode yang telah diterbitkan dapat memiliki masa penggunaan tersendiri. Disimpan sebagai contoh status Ditutup agar tidak menyesatkan.',
     lastVerifiedAt: '2026-08-04',

@@ -34,6 +34,13 @@ export default function CredentialDetailPage() {
         </div>
       </header>
 
+      {credential.whenUseful && (
+        <section className="mb-8 p-5 border border-primary/30 dark:border-dark-primary/30 bg-primary-light/40 dark:bg-dark-primary-light/40 rounded-xl">
+          <div className="eyebrow mb-1">kapan berguna</div>
+          <p className="text-sm leading-relaxed">{credential.whenUseful}</p>
+        </section>
+      )}
+
       <div className="grid sm:grid-cols-2 gap-4 mb-8">
         <FactCard label="Biaya">
           <div className="space-y-1 text-sm">

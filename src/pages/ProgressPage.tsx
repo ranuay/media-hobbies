@@ -62,6 +62,25 @@ export default function ProgressPage() {
           value={`${Math.max(totalRequiredResources - completedCount, 0)}`}
         />
       </div>
+
+      {completedCount === 0 && (
+        <section className="mb-8 p-6 border border-dashed border-border dark:border-dark-border rounded-xl text-center">
+          <div className="eyebrow mb-2">belum ada progres</div>
+          <h2 className="font-display text-xl font-semibold mb-2">
+            Semua masih kosong — mari mulai dari awal
+          </h2>
+          <p className="text-sm text-muted dark:text-dark-muted max-w-md mx-auto mb-5 leading-relaxed">
+            Progres muncul di sini setiap kamu menandai resource wajib selesai di halaman topik.
+            Mulai dari topik pertama untuk membangun fondasi.
+          </p>
+          <Link
+            to="/topics/computer-security-fundamentals"
+            className="inline-block px-5 py-2.5 bg-primary dark:bg-dark-primary text-white rounded-xl font-medium hover:bg-primary-dark dark:hover:bg-dark-primary-dark transition"
+          >
+            Mulai dari Topik 1 →
+          </Link>
+        </section>
+      )}
       <section className="mb-8 p-5 border border-border dark:border-dark-border rounded-xl bg-surface dark:bg-dark-surface">
         <h2 className="font-semibold mb-3">Backup & pemulihan</h2>
         <p className="text-sm text-muted dark:text-dark-muted mb-4">
