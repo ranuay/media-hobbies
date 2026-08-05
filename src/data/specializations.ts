@@ -20,7 +20,7 @@ export const specializations: Specialization[] = [
         name: 'NSE 1, 2, 3',
         provider: 'Fortinet',
         costHint: 'Gratis',
-        url: 'https://www.fortinet.com/training/cybersecurity-professionals/nse-certification',
+        url: 'https://www.fortinet.com/nse-training',
       },
       {
         name: 'Security+',
@@ -85,7 +85,7 @@ export const specializations: Specialization[] = [
         name: 'Microsoft SC-900',
         provider: 'Microsoft',
         costHint: '≈ USD 99',
-        url: 'https://learn.microsoft.com/en-us/training/certifications/security-compliance-identity-fundamentals/',
+        url: 'https://learn.microsoft.com/en-us/credentials/certifications/security-compliance-and-identity-fundamentals/',
       },
     ],
     resources: [
@@ -126,7 +126,7 @@ export const specializations: Specialization[] = [
         name: 'Microsoft SC-900',
         provider: 'Microsoft',
         costHint: '≈ USD 99',
-        url: 'https://learn.microsoft.com/en-us/training/certifications/security-compliance-identity-fundamentals/',
+        url: 'https://learn.microsoft.com/en-us/credentials/certifications/security-compliance-and-identity-fundamentals/',
       },
       {
         name: 'AWS Certified Cloud Practitioner',

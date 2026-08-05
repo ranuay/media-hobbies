@@ -131,13 +131,13 @@ describe('seed data validation', () => {
     }
   })
 
-  it('free NSE 1-3 credential should be fully free including exam', () => {
+  it('free NSE training should not overclaim exam-free certification', () => {
     const nse = credentials.find((c) => c.id === 'fortinet-nse-1-3')
     expect(nse).toBeDefined()
     expect(nse!.courseFree).toBe(true)
     expect(nse!.credentialFree).toBe(true)
-    expect(nse!.examFree).toBe(true)
-    expect(nse!.costRange).toBe('Gratis (USD 0) — termasuk ujian NSE 2 & 3')
+    expect(nse!.examFree, 'NSE exam-free status must be verified before claiming').not.toBe(true)
+    expect(nse!.costRange).toBe('Gratis (USD 0) — training NSE self-paced')
   })
 
   it('should have at least 5 specializations with certs and resources', () => {
